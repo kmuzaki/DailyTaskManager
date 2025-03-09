@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.nio.channels.Pipe.SourceChannel;
 import java.util.LinkedList;
 
 public class DailyTaskManager {
@@ -12,13 +13,20 @@ public class DailyTaskManager {
     "Cook a Casserole",
     "Spend time with the wife and kids"};
 
-    // Initialise Linkedlist of tasks
-    static LinkedList<String> llTasks = new LinkedList<>();
+    // Initialise Linkedlist for tasks
+    static LinkedList<String> llTasks = new LinkedList<String>();
+
+    // Initialise tasks for the LinkedList
+    static {
+        llTasks.add("File a report");
+        llTasks.add("Cook");
+        llTasks.add("Attend meeting");
+    }
 
     // Initiate Stack for undo feature
     static Stack<Integer> completedTasks = new Stack<>();
     
-    // Initialise scanner object
+    // Initialise scanner objects
     static Scanner scanner = new Scanner(System.in);
     static int selectionInt;
     static String selectionString;
@@ -126,6 +134,59 @@ public class DailyTaskManager {
         }
     }
 
+    // Add task to LinkedList function
+    public static void addTask(){
+        scanner.nextLine(); //Consume leftover newline
+        System.out.print("Type in new task to be added> ");
+        selectionString = scanner.nextLine(); // Read string input correctly
+        llTasks.add(selectionString);
+        System.out.println("New task added! ");
+        
+    }
+
+    // Function to display all tasks in LinkedList
+    public static void displayTasksLL(){
+        System.out.println("Here are your current tasks: ");
+        for (int i = 0; i < llTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + llTasks.get(i));
+            }
+        
+    }
+
+    // Function to delete a task within the LinkedList
+    public static void deleteTask(){
+        while (true) {
+            displayTasksLL();
+            System.out.println("");
+            System.out.println("Select task that you would like to delete");
+    
+            try {
+                System.out.print("Type in selection or '0' if you'd like to go back> ");
+                selectionInt = scanner.nextInt();
+                scanner.nextLine(); // Consume leftover newline
+    
+                if (selectionInt == 0) {
+                    break;
+                    
+                } else if (selectionInt > 0 && selectionInt <= (llTasks.size())) {
+                    selectionInt--; // Adjust index for zero-based array
+                    System.out.println("Task " + llTasks.get(selectionInt) + " deleted!");
+
+                    llTasks.remove(selectionInt);
+                    System.out.println("");
+                    break;
+
+                } else {
+                    System.out.println("Invalid selection! Please enter a valid task number.");
+                }
+    
+            } catch (Exception e) {
+                System.out.println("Invalid Input! Please check your input again.");
+                scanner.nextLine(); // Consume invalid input
+            }
+        }
+    }
+
     /* 
     public static void displayCompletedTasks(){
         if (completedTasks.isEmpty() == true) {
@@ -177,7 +238,7 @@ public class DailyTaskManager {
                     System.out.println("");
 
                 } else if (selectionInt == 0) {
-                    System.out.println("See you next time!");
+                    clearScreen();
                     break;
 
                 }else {
@@ -200,10 +261,13 @@ public class DailyTaskManager {
             }    
             System.out.println("=============================");
             System.out.println("How can I help you today, User?");
-            System.out.println("1. View all tasks");
-            System.out.println("2. Update task");
-            System.out.println("3. Mark task complete");
-            System.out.println("4. Undo completed task");
+            System.out.println("1. Add new task");
+            System.out.println("2. Delete task");
+            System.out.println("3. View all tasks");
+            // System.out.println("1. View all tasks");
+            // System.out.println("2. Update task");
+            // System.out.println("3. Mark task complete");
+            // System.out.println("4. Undo completed task");
             System.out.println("0. Quit");
             System.out.println("=============================");
 
@@ -213,23 +277,23 @@ public class DailyTaskManager {
 
                 if (selectionInt == 1) {
                     // Display all tasks in the array via looping
-                    displayTasks();
+                    addTask();
                     System.out.println("");
                     
                 } else if (selectionInt == 2) {
-                    updateTaskValue();
+                    deleteTask();
                     System.out.println("");
 
                 } else if (selectionInt == 3) {
-                    markTaskComplete();
+                    displayTasksLL();
                     System.out.println("");
 
-                } else if (selectionInt == 4) {
-                    undoTask();
-                    System.out.println("");
+                // } else if (selectionInt == 4) {
+                //     undoTask();
+                //     System.out.println("");
 
                 } else if (selectionInt == 0) {
-                    System.out.println("See you next time!");
+                    clearScreen();
                     break;
 
                 }else {
@@ -244,12 +308,13 @@ public class DailyTaskManager {
         }
     }
 
-    public static void selectVer(){
+    public static void mainMenu(){
         while (true){
             System.out.println("=============================");
             System.out.println("Please select your selection");
             System.out.println("1. Array");
             System.out.println("2. Linked List");
+            System.out.println("3. Exit Application");
             System.out.println("=============================");
 
             try {
@@ -259,12 +324,16 @@ public class DailyTaskManager {
                 if (selectionInt == 1) {
                     // Block of array code
                     clearScreen();
-                    System.out.println("You selected Array.");
+                    // System.out.println("You selected Array.");
                     arrayVerMenu();
                 } else if (selectionInt == 2) {
                     // Block of Linked List code
-                    System.out.println("You selected Linked List.");
-                } else {
+                    clearScreen();
+                    linkedListVerMenu();
+                } else if (selectionInt == 3) {
+                    System.out.println("See you next time!");
+                    break;
+                }else {
                     System.out.println("Invalid Input! Please check your input again.");
                     System.out.println("");
                 }
@@ -278,7 +347,7 @@ public class DailyTaskManager {
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hello and welcome to the program, User!");
-        arrayVerMenu();
+        mainMenu();
     }
 }
 
