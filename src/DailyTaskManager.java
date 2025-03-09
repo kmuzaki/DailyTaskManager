@@ -352,6 +352,7 @@ public class DailyTaskManager {
 
 /* Code references
  w3Schools, Java Tutorial, http://www.w3schools.com/java/
+ Chatgpt, https://chatgpt.com/share/67cda3bd-f15c-800c-9b06-8c1e0ce8c6d4
  How to clear console using Java, https://stackoverflow.com/questions/2979383/how-to-clear-the-console-using-java
  Java Program to print elements of an array, https://www.geeksforgeeks.org/java-program-to-print-the-elements-of-an-array/
  Stack class in Java, https://www.geeksforgeeks.org/stack-class-in-java/
