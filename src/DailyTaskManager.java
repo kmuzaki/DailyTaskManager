@@ -1,8 +1,9 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class DailyTaskManager {
-    // Initialise variables
+    // Initialise array of tasks
     static String[] arrayTasks = {"File a report to the Administrator",
     "Polish HEV Suit",
     "Write an Email to Dr. Vance",
@@ -10,6 +11,9 @@ public class DailyTaskManager {
     "Attend a meeting",
     "Cook a Casserole",
     "Spend time with the wife and kids"};
+
+    // Initialise Linkedlist of tasks
+    static LinkedList<String> llTasks = new LinkedList<>();
 
     // Initiate Stack for undo feature
     static Stack<Integer> completedTasks = new Stack<>();
@@ -32,6 +36,7 @@ public class DailyTaskManager {
         for (int i = 0; i < arrayTasks.length; i++) {
             System.out.println((i + 1) + ". " + arrayTasks[i]);
             }
+        System.out.println("You have " + completedTasks.size() + " out of " + arrayTasks.length + " tasks completed.");
         // System.out.println("You now have " + arrayTasks.length + " tasks.");
         // System.out.println("");
     }
@@ -111,13 +116,13 @@ public class DailyTaskManager {
         }
     }
 
+    // Undo Function
     public static void undoTask(){
-        if (completedTasks.isEmpty() == true) {
+        if (completedTasks.isEmpty() == true) { // Checks if the stack is empty or not
             System.out.println("You don't have any completed tasks yet");
             System.out.println("");
         } else {
-            // completedTasks.pop();
-            System.out.println("Undo marking task " + arrayTasks[completedTasks.pop()] + " completed.");
+            System.out.println("Undo marking task " + arrayTasks[completedTasks.pop()] + " completed."); // Pops recently completed task if there is an element in the stack
         }
     }
 
@@ -135,9 +140,12 @@ public class DailyTaskManager {
 
     } */
 
-    // Array version of task manager menu
+    // Linked List version of task manager menu
     public static void arrayVerMenu(){
         while (true){
+            if (completedTasks.isEmpty() == false) {
+                System.out.println("Recently completed task: " + arrayTasks[completedTasks.peek()]);
+            }    
             System.out.println("=============================");
             System.out.println("How can I help you today, User?");
             System.out.println("1. View all tasks");
@@ -158,12 +166,15 @@ public class DailyTaskManager {
                     
                 } else if (selectionInt == 2) {
                     updateTaskValue();
+                    System.out.println("");
 
                 } else if (selectionInt == 3) {
                     markTaskComplete();
+                    System.out.println("");
 
                 } else if (selectionInt == 4) {
                     undoTask();
+                    System.out.println("");
 
                 } else if (selectionInt == 0) {
                     System.out.println("See you next time!");
@@ -180,7 +191,58 @@ public class DailyTaskManager {
             }
         }
         
-    }    
+    }
+    
+    public static void linkedListVerMenu(){
+        while (true){
+            if (completedTasks.isEmpty() == false) {
+                System.out.println("Recently completed task: " + arrayTasks[completedTasks.peek()]);
+            }    
+            System.out.println("=============================");
+            System.out.println("How can I help you today, User?");
+            System.out.println("1. View all tasks");
+            System.out.println("2. Update task");
+            System.out.println("3. Mark task complete");
+            System.out.println("4. Undo completed task");
+            System.out.println("0. Quit");
+            System.out.println("=============================");
+
+            try {
+                System.out.print("Type in selection> ");
+                selectionInt = scanner.nextInt();
+
+                if (selectionInt == 1) {
+                    // Display all tasks in the array via looping
+                    displayTasks();
+                    System.out.println("");
+                    
+                } else if (selectionInt == 2) {
+                    updateTaskValue();
+                    System.out.println("");
+
+                } else if (selectionInt == 3) {
+                    markTaskComplete();
+                    System.out.println("");
+
+                } else if (selectionInt == 4) {
+                    undoTask();
+                    System.out.println("");
+
+                } else if (selectionInt == 0) {
+                    System.out.println("See you next time!");
+                    break;
+
+                }else {
+                    System.out.println("Invalid Input! Please check your input again.");
+                    System.out.println("");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid Input! Please check your input again.");
+                scanner.nextLine();
+            }
+        }
+    }
 
     public static void selectVer(){
         while (true){
@@ -226,4 +288,6 @@ public class DailyTaskManager {
  Java Program to print elements of an array, https://www.geeksforgeeks.org/java-program-to-print-the-elements-of-an-array/
  Stack class in Java, https://www.geeksforgeeks.org/stack-class-in-java/
  Stack search method in Java, https://www.geeksforgeeks.org/stack-search-method-in-java/
+ Stack size method in Java with example, https://www.geeksforgeeks.org/stack-size-method-in-java-with-example/
+ Linked list in Java, https://www.geeksforgeeks.org/linked-list-in-java/
  */
