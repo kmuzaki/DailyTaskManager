@@ -10,7 +10,7 @@ On the other hand, the LinkedList version of the app gives you the ability to up
 
 The undo feature utilises the concept of Stack or LIFO Principle. It stores the most recently marked task as complete by pushing the task index into the stack. If you want to undo it, it'll pop the latest element from the top.
 
-I used both 
+I used both the included Stack and LinkedList Library in Java
 
 ## Challenges faced
 
