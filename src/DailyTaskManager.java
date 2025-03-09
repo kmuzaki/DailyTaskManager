@@ -110,6 +110,17 @@ public class DailyTaskManager {
             }
         }
     }
+
+    public static void undoTask(){
+        if (completedTasks.isEmpty() == true) {
+            System.out.println("You don't have any completed tasks yet");
+            System.out.println("");
+        } else {
+            // completedTasks.pop();
+            System.out.println("Undo marking task " + arrayTasks[completedTasks.pop()] + " completed.");
+        }
+    }
+
     /* 
     public static void displayCompletedTasks(){
         if (completedTasks.isEmpty() == true) {
@@ -132,7 +143,7 @@ public class DailyTaskManager {
             System.out.println("1. View all tasks");
             System.out.println("2. Update task");
             System.out.println("3. Mark task complete");
-            System.out.println("4. View completed tasks");
+            System.out.println("4. Undo completed task");
             System.out.println("0. Quit");
             System.out.println("=============================");
 
@@ -151,10 +162,10 @@ public class DailyTaskManager {
                 } else if (selectionInt == 3) {
                     markTaskComplete();
 
-                } /*else if (selectionInt == 4) {
-                    displayCompletedTasks();
+                } else if (selectionInt == 4) {
+                    undoTask();
 
-                }*/else if (selectionInt == 0) {
+                } else if (selectionInt == 0) {
                     System.out.println("See you next time!");
                     break;
 
