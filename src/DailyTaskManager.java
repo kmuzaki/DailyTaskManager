@@ -12,7 +12,7 @@ public class DailyTaskManager {
     "Spend time with the wife and kids"};
 
     // Initiate Stack for undo feature
-    Stack<Integer> completedTasks = new Stack<>();
+    static Stack<Integer> completedTasks = new Stack<>();
     
     // Initialise scanner object
     static Scanner scanner = new Scanner(System.in);
@@ -91,16 +91,15 @@ public class DailyTaskManager {
                     
                 } else if (selectionInt > 0 && selectionInt <= arrayTasks.length) {
                     selectionInt--; // Adjust index for zero-based array
-                    System.out.println("Selected task: " + arrayTasks[selectionInt]);
-                    
-                    System.out.print("Type in new task for the selected task> ");
-                    selectionString = scanner.nextLine(); // Read string input correctly
-    
-                    arrayTasks[selectionInt] = selectionString; // Update task in array
-                    System.out.println("Task completed!");
-                    System.out.println("");
-                    break;
-
+                    if (completedTasks.search(selectionInt) == -1) {
+                        completedTasks.push(selectionInt);
+                        System.out.println("Task " + arrayTasks[selectionInt] + " completed!");
+                        System.out.println("");
+                        break;
+                    } else {
+                        System.out.println("Task already marked completed");
+                        System.out.println("");
+                    }
                 } else {
                     System.out.println("Invalid selection! Please enter a valid task number.");
                 }
@@ -111,15 +110,30 @@ public class DailyTaskManager {
             }
         }
     }
+    /* 
+    public static void displayCompletedTasks(){
+        if (completedTasks.isEmpty() == true) {
+            System.out.println("You don't have any completed tasks yet");
+            System.out.println("");
+        } else {
+            System.out.println("Here are your completed tasks: ");
+            for (int i = 0; i < completedTasks.length; i++) {
+                System.out.println((i + 1) + ". " + arrayTasks[i]);
+            }
+        }
+
+    } */
 
     // Array version of task manager menu
     public static void arrayVerMenu(){
         while (true){
             System.out.println("=============================");
-            System.out.println("Hoow can I help you today, User?");
+            System.out.println("How can I help you today, User?");
             System.out.println("1. View all tasks");
             System.out.println("2. Update task");
-            System.out.println("3. Quit");
+            System.out.println("3. Mark task complete");
+            System.out.println("4. View completed tasks");
+            System.out.println("0. Quit");
             System.out.println("=============================");
 
             try {
@@ -132,17 +146,23 @@ public class DailyTaskManager {
                     System.out.println("");
                     
                 } else if (selectionInt == 2) {
-                    // Block of Linked List code
                     updateTaskValue();
 
                 } else if (selectionInt == 3) {
-                    // Block of Linked List code
+                    markTaskComplete();
+
+                } /*else if (selectionInt == 4) {
+                    displayCompletedTasks();
+
+                }*/else if (selectionInt == 0) {
                     System.out.println("See you next time!");
                     break;
-                } else {
+
+                }else {
                     System.out.println("Invalid Input! Please check your input again.");
                     System.out.println("");
                 }
+
             } catch (Exception e) {
                 System.out.println("Invalid Input! Please check your input again.");
                 scanner.nextLine();
@@ -193,4 +213,6 @@ public class DailyTaskManager {
  w3Schools, Java Tutorial, http://www.w3schools.com/java/
  How to clear console using Java, https://stackoverflow.com/questions/2979383/how-to-clear-the-console-using-java
  Java Program to print elements of an array, https://www.geeksforgeeks.org/java-program-to-print-the-elements-of-an-array/
+ Stack class in Java, https://www.geeksforgeeks.org/stack-class-in-java/
+ Stack search method in Java, https://www.geeksforgeeks.org/stack-search-method-in-java/
  */
