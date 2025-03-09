@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class DailyTaskManager {
     // Initialise variables
@@ -10,6 +10,9 @@ public class DailyTaskManager {
     "Attend a meeting",
     "Cook a Casserole",
     "Spend time with the wife and kids"};
+
+    // Initiate Stack for undo feature
+    Stack<Integer> completedTasks = new Stack<>();
     
     // Initialise scanner object
     static Scanner scanner = new Scanner(System.in);
@@ -29,11 +32,12 @@ public class DailyTaskManager {
         for (int i = 0; i < arrayTasks.length; i++) {
             System.out.println((i + 1) + ". " + arrayTasks[i]);
             }
+        // System.out.println("You now have " + arrayTasks.length + " tasks.");
         // System.out.println("");
     }
 
     // Function to manipulate and update task
-    public static void updateTask(){
+    public static void updateTaskValue(){
         while (true) {
             displayTasks();
             System.out.println("");
@@ -46,6 +50,7 @@ public class DailyTaskManager {
     
                 if (selectionInt == 0) {
                     break;
+                    
                 } else if (selectionInt > 0 && selectionInt <= arrayTasks.length) {
                     selectionInt--; // Adjust index for zero-based array
                     System.out.println("Selected task: " + arrayTasks[selectionInt]);
@@ -57,6 +62,45 @@ public class DailyTaskManager {
                     System.out.println("Task updated!");
                     System.out.println("");
                     break;
+
+                } else {
+                    System.out.println("Invalid selection! Please enter a valid task number.");
+                }
+    
+            } catch (Exception e) {
+                System.out.println("Invalid Input! Please check your input again.");
+                scanner.nextLine(); // Consume invalid input
+            }
+        }
+    }
+
+    //Function to mark a task completed
+    public static void markTaskComplete(){
+        while (true) {
+            displayTasks();
+            System.out.println("");
+            System.out.println("Select task that you have completed");
+    
+            try {
+                System.out.print("Type in selection or '0' if you'd like to go back> ");
+                selectionInt = scanner.nextInt();
+                scanner.nextLine(); // Consume leftover newline
+    
+                if (selectionInt == 0) {
+                    break;
+                    
+                } else if (selectionInt > 0 && selectionInt <= arrayTasks.length) {
+                    selectionInt--; // Adjust index for zero-based array
+                    System.out.println("Selected task: " + arrayTasks[selectionInt]);
+                    
+                    System.out.print("Type in new task for the selected task> ");
+                    selectionString = scanner.nextLine(); // Read string input correctly
+    
+                    arrayTasks[selectionInt] = selectionString; // Update task in array
+                    System.out.println("Task completed!");
+                    System.out.println("");
+                    break;
+
                 } else {
                     System.out.println("Invalid selection! Please enter a valid task number.");
                 }
@@ -89,7 +133,7 @@ public class DailyTaskManager {
                     
                 } else if (selectionInt == 2) {
                     // Block of Linked List code
-                    updateTask();
+                    updateTaskValue();
 
                 } else if (selectionInt == 3) {
                     // Block of Linked List code
